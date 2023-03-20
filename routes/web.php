@@ -28,5 +28,5 @@ Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])
 Route::get('/delete-from-cart/{product}', [CartController::class, 'delete'])
     ->name('delete.from.cart');
 
-Route::post('/update-from-cart/{id}', [CartController::class, 'update'])
+Route::post('/update-from-cart', [CartController::class, 'update'])
     ->name('update.from.cart');

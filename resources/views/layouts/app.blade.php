@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body class="bg-gray-200 h-screen antialiased leading-none font-sans">
     <div id="app">
@@ -22,10 +23,9 @@
                 </nav>
             </div>
         </header>
+        @yield('scripts')
         @yield('content')
-        <script src="{{ asset('js/app.js') }}"></script>
-@stack('other-scripts')
-
+        
     </div>
 </body>
 </html>

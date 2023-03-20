@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div 
     class="grid grid-cols-1 m-auto w-full h-screen bg-dunes bg-cover bg-center"
     style="background-image: url('https://c1.wallpaperflare.com/preview/427/745/192/notebook-natural-laptop-macbook.jpg')">

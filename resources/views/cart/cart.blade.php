@@ -55,9 +55,9 @@
                 </thead>
 
                 @if (session('cartItems'))
-                    @foreach (session('cartItems') as $key => $value)
+                    @foreach (session('cartItems') as $id => $value)
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr data-id="{{ $key }}">
+                        <tr data-id="{{ $id }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
@@ -90,29 +90,34 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <form action="{{ route('update.from.cart', $key) }}" method="POST">
-                                    @csrf
-                                    <select name="quantity" id="quantity" onchange="this.form.submit()">
+                                {{-- <form action="{{ route('update.from.cart') }}" method="POST"> --}}
+                                {{--  --}}
+                                    {{-- @csrf --}}
+                                    {{--this.form.submit()   --}}
+                                    {{-- onchange="funckija()" --}}
+                                    <select name="quantity" id="quantity-{{$id}}" onchange="funkcija(this.id)"  >
                                         @for ($i = 1; $i <= 10; $i++)
-                                            <option value="{{ $i }}" {{ $value['quantity'] == $i ? 'selected' : ''}}>
+                                            <option  value="{{ $i }}" {{ $value['quantity'] == $i ? 'selected' : ''}}>
                                                 {{ $i }} 
                                             </option>
                                         @endfor
                                     </select>
-                                </form>
+                                {{-- </form> --}}
                             </td>
                             
                             
                             <td class="px-6 py-4 whitespace-nowrap">
-                               <div class="text-sm text-gray-900">
+                               <div class="text-sm text-gray-900" id="total">
                                     $ {{ $value['quantity'] * $value['price'] }} 
                                 </div>
                             </td>
 
                             <td class="px-6 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('delete.from.cart', $key) }}" role="button" class="text-red-600 hover:text-red-900">Delete</a>
+                                <a href="{{ route('delete.from.cart', $id) }}" role="button" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
                         </tr>
+                        
+                        
                     </tbody>
                     @endforeach
 
@@ -123,9 +128,73 @@
                         </p>
                     </td>
                 @endif
+                <button class="btn btn-success btn-lg float-right" type="submit">Checkout</button>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    console.log('cap');
+    $("#quantity").change(function(e) {
+        e.preventDefault();
+        //console.log("hej");
+        var ele = $(this);
+        console.log(ele);
+        //console.log(ele.parents("tr").attr("data-id"));
+        //console.log($("#quantity").val());
+  
+        $.ajax({
+            url: '{{ route('update.from.cart') }}',
+            method: "post",
+            data: {
+                _token: '{{ csrf_token() }}', 
+                id: ele.parents("tr").attr("data-id"), 
+                quantity: $("#quantity").val()
+            },
+            success: function (response) {
+               window.location.reload();
+            }
+        });
+    });
+    </script> --}}
+
+                            
 @endsection
+
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.js" 
+integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" 
+crossorigin="anonymous"></script>
+<script>
+
+function funkcija(e) {
+//e.preventDefault();
+   console.log("Usao sam u funkciju.");
+    var ele = $(this);
+    var el_q = String("#"+e);
+    console.log("Quantity you choose:"+$(el_q).val() );
+
+    
+     $.ajax({
+            url: '{{ route('update.from.cart') }}',
+            method: "post",
+            data: {
+                _token: '{{ csrf_token() }}', 
+                id: e.split('-')[1], 
+                quantity: $(el_q).val()
+            },
+            success: function (response) {
+               console.log("uspesno" );
+                
+            }
+        });
+        
+}
+
+</script>
+@endsection
+
+

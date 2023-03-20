@@ -10,6 +10,10 @@ class CartController extends Controller
     public function cart()
     {
         var_dump(session('cartItems'));
+        // foreach (session('cartItems') as $key => $value) {
+        //     echo '<br>';
+        //     var_dump($key, $value);
+        // }
         // dd(session('cartItems'));
         return view('cart.cart');
     }
@@ -54,8 +58,10 @@ class CartController extends Controller
         if($request->id && $request->quantity){
             $cartItems = session()->get('cartItems');
             $cartItems[$request->id]["quantity"] = $request->quantity;
+            var_dump($cartItems);
             session()->put('cartItems', $cartItems);
             session()->flash('success', 'Cart updated successfully');
+            
         }
         return redirect()->back();
     }
