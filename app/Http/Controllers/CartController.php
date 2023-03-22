@@ -3,19 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\DogService;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     public function cart()
     {
-        var_dump(session('cartItems'));
+        // var_dump(session('cartItems'));
         // foreach (session('cartItems') as $key => $value) {
         //     echo '<br>';
         //     var_dump($key, $value);
         // }
         // dd(session('cartItems'));
-        return view('cart.cart');
+        $dogService = new DogService();
+
+        $dogBreeds = $dogService->getBreeds();
+
+        return view('cart.cart')->with([
+            'dogs' => $dogBreeds['data'],
+        ]);
     }
 
     public function addToCart(Product $product)
@@ -31,7 +38,7 @@ class CartController extends Controller
                 "brand" => $product->brand,
                 "details" => $product->details,
                 "price" => $product->price,
-                "quantity" => 1
+                "quantity" => 1,
             ];
         }
 

@@ -51,6 +51,11 @@
                             class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Delete
                         </th>
+                        <th 
+                            scope="col" 
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dog breede
+                        </th>
                     </tr>
                 </thead>
 
@@ -115,6 +120,16 @@
                             <td class="px-6 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('delete.from.cart', $id) }}" role="button" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
+
+                               <td class="px-6 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="text-sm text-gray-900" id="total">
+                                    {{-- @foreach($dogs as $dog)
+                                         {{ $dog['attributes']['name']}}
+                                    @endforeach --}}
+                                    {{ $dogs[1]['attributes']['name']}}
+                                       
+                                    </div>
+                               <td>
                         </tr>
                         
                         
@@ -188,10 +203,9 @@ function funkcija(e) {
             },
             success: function (response) {
                console.log("uspesno" );
-                
+                //location.reload();
             }
         });
-        
 }
 
 </script>
