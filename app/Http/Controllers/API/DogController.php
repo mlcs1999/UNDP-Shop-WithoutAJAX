@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class DogController extends Controller
 {
+
+    /**
+ * @group Dogs
+ *
+ * API endpoints for managing dogs
+ */
+
     public function breeds() {
         $dogService = new DogService();
 
